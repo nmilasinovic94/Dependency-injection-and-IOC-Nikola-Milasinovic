@@ -1,4 +1,7 @@
 export class Logger {
+  // Logger has no dependencies. Keep a single shared instance.
+  static $singleton = true;
+
   info(message: string) {
     const date = new Date().toISOString();
 
