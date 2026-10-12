@@ -5,9 +5,12 @@ export class HTTP {
   logger: Logger;
   apiConfig: ApiConfig;
 
-  constructor(apiConfig: ApiConfig) {
+  // Dependencies injected by the IoC container, in this order.
+  static $inject = ['logger', 'config'];
+
+  constructor(logger: Logger, apiConfig: ApiConfig) {
+    this.logger = logger;
     this.apiConfig = apiConfig;
-    this.logger = new Logger();
   }
 
   async get(url: string) {
