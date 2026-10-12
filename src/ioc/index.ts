@@ -15,14 +15,12 @@ export type IoCResources = {
   users: typeof Users;
 };
 
-export const createIoCContainer = (config: ApiConfig) => {
+export const createIoCContainer = () => {
   const ioc = new IoCContainer<IoCResources>();
 
-  // Plain value resource.
-  ioc.register('config', config);
-
   // Class resources. Their dependencies are declared via the static
-  // `$inject` property on each class and wired automatically on resolve.
+  // `$inject` property on each class and resolved lazily on `resolve`,
+  // so `config` can be registered later, once it is available.
   ioc.registerClass('logger', Logger);
   ioc.registerClass('http', HTTP);
   ioc.registerClass('users', Users);
